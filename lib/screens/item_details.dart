@@ -41,37 +41,31 @@ class ItemDetailsScreen extends StatelessWidget {
   DetailsIcon ReadyInMinutes;
 
   void isVegan() {
-    if (vegan == 'true') {
-      IsVegan = DetailsIcon(
-        icon: 'assets/images/vegan.png',
-      );
-    }
-
-    IsVegan = DetailsIcon(
-      icon: 'assets/images/meat.png',
-    );
+    vegan == 'true'
+        ? IsVegan = DetailsIcon(
+            icon: 'assets/images/vegan.png',
+          )
+        : IsVegan = DetailsIcon(
+            icon: 'assets/images/meat.png',
+          );
   }
 
   void healthy() {
-    if (veryHealthy == 'true') {
-      IsHealthy = DetailsIcon(
-        icon: 'assets/images/healthy-food.png',
-      );
-    }
-
-    IsHealthy = DetailsIcon(
-      icon: 'assets/images/fast-food.png',
-    );
+    veryHealthy == 'true'
+        ? IsHealthy = DetailsIcon(
+            icon: 'assets/images/healthy-food.png',
+          )
+        : IsHealthy = DetailsIcon(
+            icon: 'assets/images/fast-food.png',
+          );
   }
 
   void popular() {
-    if (veryPopular == 'true') {
-      IsPopular = DetailsIcon(
-        icon: 'assets/images/fire.png',
-      );
-    }
-
-    IsPopular = DetailsIcon(icon: 'assets/images/smile.png');
+    veryPopular == 'true'
+        ? IsPopular = DetailsIcon(
+            icon: 'assets/images/fire.png',
+          )
+        : IsPopular = DetailsIcon(icon: 'assets/images/smile.png');
   }
 
   void readyInMins() {
@@ -93,7 +87,9 @@ class ItemDetailsScreen extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<CounterProvider>(create: (_) => CounterProvider()),
-        ChangeNotifierProvider<HeightProvider>(create: (_) => HeightProvider()),
+        ChangeNotifierProvider<HeightProvider>(
+            create: (_) =>
+                HeightProvider(MediaQuery.of(context).size.height * 80 / 100 + foodName.length)),
       ],
       child: Screen(
         foodName: foodName,
@@ -132,6 +128,7 @@ class Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     count = Provider.of<CounterProvider>(context).itemCount;
+
     print(count);
     print(totalItems);
     return Scaffold(
@@ -178,7 +175,7 @@ class Screen extends StatelessWidget {
                       margin: EdgeInsets.only(
                         top: MediaQuery.of(context).size.height * 30 / 100,
                       ),
-                      height: Provider.of<HeightProvider>(context).height + foodName.length * 3.5,
+                      height: Provider.of<HeightProvider>(context).height,
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.vertical(top: Radius.elliptical(100, 100))))
@@ -254,9 +251,9 @@ class Screen extends StatelessWidget {
                               callback: (value) {
                                 value
                                     ? Provider.of<HeightProvider>(context, listen: false)
-                                        .lessHeight(context)
-                                    : Provider.of<HeightProvider>(context, listen: false)
-                                        .moreHeight(context);
+                                        .setHeight(context, foodName.length)
+                                    : Provider.of<HeightProvider>(context, listen: false).setHeight(
+                                        context, foodName.length + description.length / 4.5);
                                 print(value);
                               },
                             );

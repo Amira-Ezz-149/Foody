@@ -5,8 +5,6 @@ import 'package:provider/provider.dart';
 import '../services/providers/my_provider.dart';
 
 class CustomizedGridViewItem extends StatelessWidget {
-  // String title;
-  // Nutrition nutrition;
   final String description;
   final String foodName;
   final String image;
@@ -48,6 +46,7 @@ class CustomizedGridViewItem extends StatelessWidget {
               color: Colors.grey.shade200,
             ),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 GestureDetector(
                   onTap: () {
@@ -59,60 +58,51 @@ class CustomizedGridViewItem extends StatelessWidget {
                           image: image,
                           price: price,
                           description: description,
-                          vegan: vegan,
-                          readyInMinutes: readyInMinutes,
-                          veryHealthy: veryHealthy,
-                          veryPopular: veryPopular,
-                        ),
+                              vegan: vegan,
+                              readyInMinutes: readyInMinutes,
+                              veryHealthy: veryHealthy,
+                              veryPopular: veryPopular,
+                            ),
                       ),
                     );
                   },
                   child: Image(
                     fit: BoxFit.cover,
-                    height: MediaQuery.of(context).size.height / 6.5,
-                    width: MediaQuery.of(context).size.height / 5,
+                    height: MediaQuery.of(context).size.height / 6,
+                    width: MediaQuery.of(context).size.height / 4,
                     image: NetworkImage(image),
                   ),
                 ),
-                SizedBox(
-                  height: 10.0,
-                ),
                 Container(
-                  height: MediaQuery.of(context).size.height / 18,
+                  height: MediaQuery.of(context).size.height / 15,
                   child: Text(
                     '$foodName',
+                    maxLines: 2,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
                   ),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
+                      '\$$price',
+                      style:
+                          TextStyle(color: priceColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
                       '$readyInMinutes min',
                       style: TextStyle(color: Colors.grey),
                     ),
-                    Text('⭐ 4.5'),
                   ],
                 ),
                 SizedBox(
-                  height: 10,
-                ),
+                  height: MediaQuery.of(context).size.height * 1 / 100,
+                )
               ],
             ),
-          ),
-        ),
-
-        //=================================== price
-        // //==================================================
-        Positioned(
-          bottom: 10.0,
-          left: 10.0,
-          child: Text(
-            '\$$price',
-            style: TextStyle(color: priceColor, fontSize: 18.0, fontWeight: FontWeight.bold),
           ),
         ),
       ],

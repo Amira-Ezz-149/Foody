@@ -57,7 +57,7 @@ class HomeBottomBar extends StatelessWidget {
                             itemCount: snapshot.data.length,
                             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                               maxCrossAxisExtent: 200,
-                              childAspectRatio: 3 / 4,
+                              childAspectRatio: 2.8 / 4,
                               crossAxisSpacing: 20,
                               mainAxisSpacing: 20,
                             ),
