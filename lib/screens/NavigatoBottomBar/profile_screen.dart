@@ -40,72 +40,74 @@ class _ProfileScreenState extends State<ProfileScreen> {
         maintainBottomViewPadding: true,
         child: Padding(
           padding: const EdgeInsets.only(top: 20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Stack(
-                children: [
-                  ClipOval(
-                    child: image != null
-                        ? Image.file(
-                            image,
-                            width: 160,
-                            height: 160,
-                            fit: BoxFit.cover,
-                          )
-                        : FlutterLogo(
-                            size: 160,
-                          ),
-                  ),
-                  Positioned(
-                    child: GestureDetector(
-                        onTap: () => pickImage(),
-                        child: Icon(
-                          Icons.camera_enhance,
-                          size: 30.0,
-                          color: basicColor,
-                        )),
-                    bottom: 1.0,
-                    right: 5.0,
-                  ),
-                ],
-              ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Stack(
+                  children: [
+                    ClipOval(
+                      child: image != null
+                          ? Image.file(
+                              image,
+                              width: 160,
+                              height: 160,
+                              fit: BoxFit.cover,
+                            )
+                          : FlutterLogo(
+                              size: 160,
+                            ),
+                    ),
+                    Positioned(
+                      child: GestureDetector(
+                          onTap: () => pickImage(),
+                          child: Icon(
+                            Icons.camera_enhance,
+                            size: 30.0,
+                            color: basicColor,
+                          )),
+                      bottom: 1.0,
+                      right: 5.0,
+                    ),
+                  ],
+                ),
 
-              /// get user Information
-              FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-                future: fireStoreDatabaseMethods.getUserInformation(usernameId),
-                builder: (c, snapshot) => snapshot.hasData
-                    ? Column(
-                        children: [
-                          CustomizedInfoItem(
-                            icon: Icons.person,
-                            label: snapshot.data.data()['username'],
-                          ),
-                          CustomizedInfoItem(
-                            icon: Icons.phone,
-                            label: snapshot.data.data()['phone'],
-                          ),
-                          CustomizedInfoItem(
-                            icon: Icons.email,
-                            label: snapshot.data.data()['email'],
-                          ),
-                          CustomizedInfoItem(
-                            icon: Icons.location_on,
-                            label: snapshot.data.data()['address'],
-                          ),
-                          CustomButton(
-                              text: 'Sign Out',
-                              function: () {
-                                authFirebaseMethods.signOut().then((value) {
-                                  SharedPreferencesDatabase.saveUserLoggedInKey(false);
-                                  Navigator.pushReplacementNamed(context, WelcomeScreen.id);
-                                });
-                              })
-                        ],
-                      )
-                    : Center(child: CircularProgressIndicator()),
-              ),
-            ],
+                /// get user Information
+                FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+                  future: fireStoreDatabaseMethods.getUserInformation(usernameId),
+                  builder: (c, snapshot) => snapshot.hasData
+                      ? Column(
+                          children: [
+                            CustomizedInfoItem(
+                              icon: Icons.person,
+                              label: snapshot.data.data()['username'],
+                            ),
+                            CustomizedInfoItem(
+                              icon: Icons.phone,
+                              label: snapshot.data.data()['phone'],
+                            ),
+                            CustomizedInfoItem(
+                              icon: Icons.email,
+                              label: snapshot.data.data()['email'],
+                            ),
+                            CustomizedInfoItem(
+                              icon: Icons.location_on,
+                              label: snapshot.data.data()['address'],
+                            ),
+                            CustomButton(
+                                text: 'Sign Out',
+                                function: () {
+                                  authFirebaseMethods.signOut().then((value) {
+                                    SharedPreferencesDatabase.saveUserLoggedInKey(false);
+                                    Navigator.pushReplacementNamed(context, WelcomeScreen.id);
+                                  });
+                                })
+                          ],
+                        )
+                      : Center(child: CircularProgressIndicator()),
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -3,15 +3,18 @@ import 'package:food_app/constants.dart';
 
 class CounterProvider extends ChangeNotifier {
   int itemCount = 0;
+
   void add() {
     itemCount++;
     totalItems++;
+
     notifyListeners();
   }
 
   void remove() {
     itemCount--;
     totalItems--;
+
     itemCount < 0 ? itemCount = 0 : notifyListeners();
   }
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
+import 'package:food_app/screens/NavigatoBottomBar/home_bottom_bar.dart';
 import 'package:food_app/screens/home_screen.dart';
 import 'screens/NavigatoBottomBar/cart_Screen.dart';
 import 'screens/NavigatoBottomBar/profile_screen.dart';
@@ -24,6 +26,9 @@ main() async {
 
       /// first case ,isCheck is false
       .then((value) => isCheck = value ?? false);
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
   runApp(MyApp());
 }
 
@@ -42,7 +47,8 @@ class MyApp extends StatelessWidget {
           ItemDetailsScreen.id: (context) => ItemDetailsScreen(),
           ProfileScreen.id: (context) => ProfileScreen(),
           CartScreen.id: (context) => CartScreen(),
-          SuccessPayment.id: (context) => SuccessPayment()
+          SuccessPayment.id: (context) => SuccessPayment(),
+          HomeBottomBar.id: (context) => HomeBottomBar(),
         },
         initialRoute: isCheck ? HomeScreen.id : WelcomeScreen.id,
       ),

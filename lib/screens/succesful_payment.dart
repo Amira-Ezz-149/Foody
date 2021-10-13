@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/screens/NavigatoBottomBar/home_bottom_bar.dart';
 import 'package:food_app/screens/home_screen.dart';
 import 'package:food_app/screens/payment_screen.dart';
 import 'package:food_app/widgets/custom_button.dart';
@@ -42,9 +43,9 @@ class _SuccessPaymentState extends State<SuccessPayment> {
               style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),
             ),
           ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width /1.5,
-                child: CustomButton(text: 'Track Order', function:null )),
+          SizedBox(
+              width: MediaQuery.of(context).size.width / 1.5,
+              child: CustomButton(text: 'Track Order', function: null)),
           GestureDetector(
             onTap: () {
               Navigator.pushReplacementNamed(context, HomeScreen.id);

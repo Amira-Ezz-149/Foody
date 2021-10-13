@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/constants.dart';
 import 'package:food_app/screens/item_details.dart';
+import 'package:food_app/services/providers/counter_provider.dart';
 import 'package:provider/provider.dart';
 import '../services/providers/my_provider.dart';
 
@@ -45,63 +46,68 @@ class CustomizedGridViewItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.0),
               color: Colors.grey.shade200,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ItemDetailsScreen(
-                          foodName: foodName,
-                          image: image,
-                          price: price,
-                          description: description,
-                          vegan: vegan,
-                          readyInMinutes: readyInMinutes,
-                          veryHealthy: veryHealthy,
-                          veryPopular: veryPopular,
+            child: Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChangeNotifierProvider<CounterProvider>(
+                            create: (_) => CounterProvider(),
+                            child: ItemDetailsScreen(
+                              foodName: foodName,
+                              image: image,
+                              price: price,
+                              description: description,
+                              vegan: vegan,
+                              readyInMinutes: readyInMinutes,
+                              veryHealthy: veryHealthy,
+                              veryPopular: veryPopular,
+                            ),
+                          ),
                         ),
+                      );
+                    },
+                    child: Image(
+                      fit: BoxFit.cover,
+                      height: MediaQuery.of(context).size.height / 6,
+                      width: MediaQuery.of(context).size.height / 4,
+                      image: NetworkImage(image),
+                    ),
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.height / 15,
+                    child: Text(
+                      '$foodName',
+                      maxLines: 2,
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '\$$price',
+                        style: TextStyle(
+                            color: priceColor, fontSize: 18.0, fontWeight: FontWeight.bold),
                       ),
-                    );
-                  },
-                  child: Image(
-                    fit: BoxFit.cover,
-                    height: MediaQuery.of(context).size.height / 6,
-                    width: MediaQuery.of(context).size.height / 4,
-                    image: NetworkImage(image),
+                      Text(
+                        '$readyInMinutes min',
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    ],
                   ),
-                ),
-                Container(
-                  height: MediaQuery.of(context).size.height / 15,
-                  child: Text(
-                    '$foodName',
-                    maxLines: 2,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-                  ),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '\$$price',
-                      style:
-                          TextStyle(color: priceColor, fontSize: 18.0, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      '$readyInMinutes min',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 1 / 100,
-                )
-              ],
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 1 / 100,
+                  )
+                ],
+              ),
             ),
           ),
         ),
