@@ -1,5 +1,4 @@
 # Foody🍔🍟
-## Modifications by Amira!
 
 ## apk link: https://drive.google.com/file/d/1kCedUXbd8v7wVyTNVIp_ZANh3FO85Q0D/view?usp=sharing
 
